@@ -6,16 +6,13 @@ using System.Web.Mvc.Filters;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Security.Principal;
+using System.Web.Security;
 
 namespace Filters.Infrastructure {
 
     public class GoogleAuthAttribute : FilterAttribute, IAuthenticationFilter {
 
         public void OnAuthentication(AuthenticationContext context) {
-            //not implemented
-        }
-
-        public void OnAuthenticationChallenge(AuthenticationChallengeContext context) {
             IIdentity ident = context.Principal.Identity;
             if (!ident.IsAuthenticated || !ident.Name.EndsWith("@google.com")) {
                 context.Result = new HttpUnauthorizedResult();
@@ -29,8 +26,9 @@ namespace Filters.Infrastructure {
                     {"action", "Login"},
                     {"returnUrl", context.HttpContext.Request.RawUrl}
                 });
+            } else {
+                FormsAuthentication.SignOut();
             }
-        }
         }
     }
 }

@@ -8,5 +8,11 @@ namespace Filters.Controllers {
         public string Index() {
             return "This is the Index action on the Home controller";
         }
+
+        [GoogleAuth]
+        [Authorize(Users = "bob@google.com")]
+        public string List() {
+            return "This is the List action on the Home controller";
+        }
     }
 }
