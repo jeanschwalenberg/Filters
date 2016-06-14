@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Filters.App_Start;
+﻿using System.Web.Mvc;
 using Filters.Infrastructure;
 
 namespace Filters.Controllers {
@@ -14,6 +9,7 @@ namespace Filters.Controllers {
             return "This is the customer controller";
         }
 
+        [CustomOverrideActionFilters]
         [SimpleMessage(Message = "B")]
         public string OtherAction() {
             return "This is the Other Action in the Customer controller";
